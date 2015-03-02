@@ -17,6 +17,7 @@ Route::get('home', 'HomeController@index');
 
 Route::group(array('prefix' => 'api'), function () {
 	Route::get('pages', 'PagesController@index');
+	Route::get('articles', 'ArticlesController@index');
 });
 
 Route::controllers([
