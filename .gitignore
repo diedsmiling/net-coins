@@ -1,12 +1,12 @@
 /vendor
-/node_modules
+
 .env
 .env*
 
 .idea
 
 angular-frontend/node_modules
-angular-backend/node_modules
+
 
 public/images
 public/css
