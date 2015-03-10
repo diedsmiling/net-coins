@@ -5,8 +5,13 @@
 
 .idea
 
-angular/node_modules
+angular-frontend/node_modules
+angular-backend/node_modules
+
 public/images
 public/css
 public/js
-public/angular.html
+
+public/admin/images
+public/admin/css
+public/admin/js

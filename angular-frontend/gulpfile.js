@@ -6,12 +6,33 @@ var gulp = require('gulp'),
     publicFolderPath = '../public',
     adminPublicFolderPath = '../public/admin',
     appsPaths = {
+        'admin' : {
+            appJavascript:     ['admin_app/js/app.js', 'admin_app/js/**/*.js'],
+            appTemplates:      'admin_app/js/**/*.tpl.html',
+            appMainSass:       'admin_app/scss/main.scss',
+            appStyles:         'admin_app/scss/**/*.scss',
+            appImages:         'admin_app/images/**/*',
+            indexHtml:         'admin_app/admin.html',
+            vendorJavascript:  ['vendor/js/angular.js', 'vendor/js/**/*.js'],
+            vendorCss:         ['vendor/css/**/*.css'],
+            finalAppJsPath:    '/js/app.js',
+            finalAppCssPath:   '/css/app.css',
+            specFolder:        ['spec/**/*_spec.js'],
+            publicFolder:      adminPublicFolderPath,
+            publicJavascript:  adminPublicFolderPath + '/js',
+            publicAppJs:       adminPublicFolderPath + '/js/app.js',
+            publicCss:         adminPublicFolderPath + '/css',
+            publicImages:      adminPublicFolderPath + '/images',
+            publicIndex:       '../admin/angular.html',
+            publicJsManifest:  adminPublicFolderPath + '/js/rev-manifest.json',
+            publicCssManifest: adminPublicFolderPath + '/css/rev-manifest.json'
+        },
         'front' : {
             appJavascript:     ['app/js/app.js', 'app/js/**/*.js'],
             appTemplates:      'app/js/**/*.tpl.html',
             appMainSass:       'app/scss/main.scss',
             appStyles:         'app/scss/**/*.scss',
-            appImages:         'app/images/**/*',
+            appImages:         '2/images/**/*',
             indexHtml:         'app/index.html',
             vendorJavascript:  ['vendor/js/angular.js', 'vendor/js/**/*.js'],
             vendorCss:         ['vendor/css/**/*.css'],
@@ -26,27 +47,6 @@ var gulp = require('gulp'),
             publicIndex:       publicFolderPath + '/angular.html',
             publicJsManifest:  publicFolderPath + '/js/rev-manifest.json',
             publicCssManifest: publicFolderPath + '/css/rev-manifest.json',
-        },
-        'admin' : {
-            appJavascript:     ['admin_app/js/app.js', 'admin_app/js/**/*.js'],
-            appTemplates:      'admin_app/js/**/*.tpl.html',
-            appMainSass:       'admin_app/scss/main.scss',
-            appStyles:         'admin_app/scss/**/*.scss',
-            appImages:         'admin_app/images/**/*',
-            indexHtml:         'admin_app/index.html',
-            vendorJavascript:  ['vendor/js/angular.js', 'vendor/js/**/*.js'],
-            vendorCss:         ['vendor/css/**/*.css'],
-            finalAppJsPath:    '/js/app.js',
-            finalAppCssPath:   '/css/app.css',
-            specFolder:        ['spec/**/*_spec.js'],
-            publicFolder:      adminPublicFolderPath,
-            publicJavascript:  adminPublicFolderPath + '/js',
-            publicAppJs:       adminPublicFolderPath + '/js/app.js',
-            publicCss:         adminPublicFolderPath + '/css',
-            publicImages:      adminPublicFolderPath + '/images',
-            publicIndex:       adminPublicFolderPath + '/angular.html',
-            publicJsManifest:  adminPublicFolderPath + '/js/rev-manifest.json',
-            publicCssManifest: adminPublicFolderPath + '/css/rev-manifest.json'
         }
     },
     appsObjects = Object.keys(appsPaths),
@@ -167,9 +167,7 @@ function createDevelopmentIndexTask(appName) {
             js: paths.finalAppJsPath,
             css: paths.finalAppCssPath
         };
-        console.log(paths.indexHtml);
-        console.log(paths.publicIndex);
-        console.log(paths.publicFolder);
+
         return gulp.src(paths.indexHtml)
             .pipe(plugins.template({css: manifest['css'], js: manifest['js']}))
             .pipe(plugins.rename(paths.publicIndex))
