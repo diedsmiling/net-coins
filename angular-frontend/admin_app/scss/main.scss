@@ -1,1 +1,22 @@
-body {float:left;}
+$font-stack: 'Open Sans Condensed', sans-serif;
+$bigBoy: 30px;
+$darkBlue: #515a63;
+@import url(http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300italic,700,300&subset=latin,cyrillic-ext,cyrillic,latin-ext);
+html{
+  height: 100%;
+}
+body {
+  font: normal 18px $font-stack;
+  margin: 0px;
+  @extend html;
+}
+.container{
+  position: relative;
+  min-height: 100%;
+}
+.sign_up{
+  .container{
+    background: $darkBlue;
+    color: white;
+  }
+}

@@ -6,27 +6,6 @@ var gulp = require('gulp'),
     publicFolderPath = '../public',
     adminPublicFolderPath = '../public/admin',
     appsPaths = {
-        'admin' : {
-            appJavascript:     ['admin_app/js/app.js', 'admin_app/js/**/*.js'],
-            appTemplates:      'admin_app/js/**/*.tpl.html',
-            appMainSass:       'admin_app/scss/main.scss',
-            appStyles:         'admin_app/scss/**/*.scss',
-            appImages:         'admin_app/images/**/*',
-            indexHtml:         'admin_app/admin.html',
-            vendorJavascript:  ['vendor/js/angular.js', 'vendor/js/**/*.js'],
-            vendorCss:         ['vendor/css/**/*.css'],
-            finalAppJsPath:    '/js/app.js',
-            finalAppCssPath:   '/css/app.css',
-            specFolder:        ['spec/**/*_spec.js'],
-            publicFolder:      adminPublicFolderPath,
-            publicJavascript:  adminPublicFolderPath + '/js',
-            publicAppJs:       adminPublicFolderPath + '/js/app.js',
-            publicCss:         adminPublicFolderPath + '/css',
-            publicImages:      adminPublicFolderPath + '/images',
-            publicIndex:       '../admin/angular.html',
-            publicJsManifest:  adminPublicFolderPath + '/js/rev-manifest.json',
-            publicCssManifest: adminPublicFolderPath + '/css/rev-manifest.json'
-        },
         'front' : {
             appJavascript:     ['app/js/app.js', 'app/js/**/*.js'],
             appTemplates:      'app/js/**/*.tpl.html',
@@ -47,6 +26,27 @@ var gulp = require('gulp'),
             publicIndex:       publicFolderPath + '/angular.html',
             publicJsManifest:  publicFolderPath + '/js/rev-manifest.json',
             publicCssManifest: publicFolderPath + '/css/rev-manifest.json',
+        },
+        'admin' : {
+            appJavascript:     ['admin_app/js/app.js', 'admin_app/js/**/*.js'],
+            appTemplates:      'admin_app/js/**/*.tpl.html',
+            appMainSass:       'admin_app/scss/main.scss',
+            appStyles:         'admin_app/scss/**/*.scss',
+            appImages:         'admin_app/images/**/*',
+            indexHtml:         'admin_app/admin.html',
+            vendorJavascript:  ['vendor/js/angular.js', 'vendor/js/**/*.js'],
+            vendorCss:         ['vendor/css/**/*.css'],
+            finalAppJsPath:    '/admin/js/app.js',
+            finalAppCssPath:   '/admin/css/app.css',
+            specFolder:        ['spec/**/*_spec.js'],
+            publicFolder:      adminPublicFolderPath,
+            publicJavascript:  adminPublicFolderPath + '/js',
+            publicAppJs:       adminPublicFolderPath + '/js/app.js',
+            publicCss:         adminPublicFolderPath + '/css',
+            publicImages:      adminPublicFolderPath + '/images',
+            publicIndex:       '../admin/angular.html',
+            publicJsManifest:  adminPublicFolderPath + '/js/rev-manifest.json',
+            publicCssManifest: adminPublicFolderPath + '/css/rev-manifest.json'
         }
     },
     appsObjects = Object.keys(appsPaths),
@@ -163,6 +163,7 @@ function createProductionStylesTask(appName) {
 function createDevelopmentIndexTask(appName) {
     var  paths = appsPaths[appName];
     gulp.task('indexHtml-dev-'+appName, ['scripts-dev-'+appName, 'styles-dev-'+appName], function() {
+        console.log(paths.finalAppJsPath);
         var manifest = {
             js: paths.finalAppJsPath,
             css: paths.finalAppCssPath
@@ -183,12 +184,12 @@ function createDevelopmentIndexTask(appName) {
 function createProductionIndexTask(appName) {
     var  paths = appsPaths[appName];
     gulp.task('indexHtml-prod-'+appName, ['scripts-prod-'+appName, 'styles-prod-'+appName], function() {
-        var jsManifest  = JSON.parse(fs.readFileSync(paths.publicJsManifest, 'utf8'));
-        var cssManifest = JSON.parse(fs.readFileSync(paths.publicCssManifest, 'utf8'));
-
-        var manifest = {
-            js: '/js/' + jsManifest['app.js'],
-            css: '/css/' + cssManifest['app.css']
+        var jsManifest  = JSON.parse(fs.readFileSync(paths.publicJsManifest, 'utf8')),
+            cssManifest = JSON.parse(fs.readFileSync(paths.publicCssManifest, 'utf8')),
+            prefix = (appName == 'admin' ? 'admin' : ''),
+            manifest = {
+            js: prefix + '/js/' + jsManifest['app.js'],
+            css: prefix + '/css/' + cssManifest['app.css']
         };
 
         return gulp.src(paths.indexHtml)
