@@ -3,6 +3,7 @@ var gulp = require('gulp'),
     plugins = require('gulp-load-plugins')(),
     es      = require('event-stream'),
     del     = require('del'),
+    debug     = require('gulp-debug'),
     publicFolderPath = '../public',
     adminPublicFolderPath = '../public/admin',
     bc = 'bower_components',
@@ -12,10 +13,11 @@ var gulp = require('gulp'),
             appTemplates:      'app/js/**/*.tpl.html',
             appMainSass:       'app/scss/main.scss',
             appStyles:         'app/scss/**/*.scss',
-            appImages:         '2/images/**/*',
+            appImages:         'app/images/**/*',
+            faFonts:           bc+  '/font-awesome/fonts/*',
             indexHtml:         'app/index.html',
             vendorJavascript:  [bc+ '/angular/angular.js'],
-            vendorCss:         [bc + '/bootstrap-css/bootstrap.css'],
+            vendorCss:         [bc + '/bootstrap-css/css/bootstrap.min.css', bc + '/font-awesome/css/font-awesome.min.css'],
             finalAppJsPath:    '/js/app.js',
             finalAppCssPath:   '/css/app.css',
             specFolder:        ['spec/**/*_spec.js'],
@@ -24,6 +26,7 @@ var gulp = require('gulp'),
             publicAppJs:       publicFolderPath + '/js/app.js',
             publicCss:         publicFolderPath + '/css',
             publicImages:      publicFolderPath + '/images',
+            publicFonts:       publicFolderPath + '/fonts',
             publicIndex:       publicFolderPath + '/angular.html',
             publicJsManifest:  publicFolderPath + '/js/rev-manifest.json',
             publicCssManifest: publicFolderPath + '/css/rev-manifest.json',
@@ -34,9 +37,10 @@ var gulp = require('gulp'),
             appMainSass:       'admin_app/scss/main.scss',
             appStyles:         'admin_app/scss/**/*.scss',
             appImages:         'admin_app/images/**/*',
+            faFonts:           bc+  '/font-awesome/fonts/*',
             indexHtml:         'admin_app/admin.html',
             vendorJavascript:  [bc+ '/angular/angular.js'],
-            vendorCss:         [bc + '/bootstrap-css/css/bootstrap.css'],
+            vendorCss:         [bc + '/bootstrap-css/css/bootstrap.min.css', bc + '/font-awesome/css/font-awesome.min.css'],
             finalAppJsPath:    '/admin/js/app.js',
             finalAppCssPath:   '/admin/css/app.css',
             specFolder:        ['spec/**/*_spec.js'],
@@ -45,6 +49,7 @@ var gulp = require('gulp'),
             publicAppJs:       adminPublicFolderPath + '/js/app.js',
             publicCss:         adminPublicFolderPath + '/css',
             publicImages:      adminPublicFolderPath + '/images',
+            publicFonts:       adminPublicFolderPath + '/fonts',
             publicIndex:       '../admin/angular.html',
             publicJsManifest:  adminPublicFolderPath + '/js/rev-manifest.json',
             publicCssManifest: adminPublicFolderPath + '/css/rev-manifest.json'
@@ -79,7 +84,6 @@ function buildTemplates() {
 function createDevelopmentScriptsTask(appName){
     var  paths = appsPaths[appName];
     gulp.task('scripts-dev-'+appName, function() {
-        console.log(paths.vendorJavascript);
         return gulp.src(paths.vendorJavascript.concat(paths.appJavascript, paths.appTemplates))
         .pipe(plugins.if(/html$/, buildTemplates()))
         .pipe(plugins.sourcemaps.init())
@@ -97,7 +101,8 @@ function createDevelopmentScriptsTask(appName){
 function createDevelopmentStylesTask(appName){
     var  paths = appsPaths[appName];
     gulp.task('styles-dev-'+appName, function() {
-        return gulp.src(paths.vendorCss.concat(paths.appMainSass))
+        return gulp.src(paths.vendorCss.concat(paths.appMainSass, paths.appStyles))
+            .pipe(debug())
             .pipe(plugins.if(/scss$/, plugins.sass()))
             .pipe(plugins.concat('app.css'))
             .pipe(gulp.dest(paths.publicCss))
@@ -115,6 +120,20 @@ function createImagesTask(appName){
     gulp.task('images-'+appName, function() {
         return gulp.src(paths.appImages)
             .pipe(gulp.dest(paths.publicImages));
+    });
+}
+
+/**
+ * Add fonts task for both environments
+ *
+ * @param string appName
+ */
+function createFontsTask(appName){
+    var  paths = appsPaths[appName];
+    gulp.task('fonts-'+appName, function() {
+        return gulp.src(paths.faFonts)
+            .pipe(gulp.dest(paths.publicFonts));
+
     });
 }
 
@@ -225,6 +244,7 @@ appsObjects.forEach(function(appName) {
     createDevelopmentScriptsTask(appName);
     createDevelopmentStylesTask(appName);
     createImagesTask(appName);
+    createFontsTask(appName);
     createProductionScriptsTask(appName);
     createProductionStylesTask(appName);
     createDevelopmentIndexTask(appName);
@@ -233,12 +253,13 @@ appsObjects.forEach(function(appName) {
 });
 
 
-gulp.task('watch', ['indexHtml-dev-front', 'indexHtml-dev-admin', 'images-admin', 'images-front'], function() {
+gulp.task('watch', ['indexHtml-dev-front', 'indexHtml-dev-admin', 'images-admin', 'images-front', 'fonts-admin', 'fonts-front'], function() {
     appsObjects.forEach(function(appName){
         gulp.watch(appsPaths[appName].appJavascript, ['lint-'+appName, 'scripts-dev-'+appName]);
         gulp.watch(appsPaths[appName].appTemplates, ['scripts-dev-'+appName]);
         gulp.watch(appsPaths[appName].vendorJavascript, ['scripts-dev-'+appName]);
         gulp.watch(appsPaths[appName].appImages, ['images-'+appName]);
+        gulp.watch(appsPaths[appName].faFonts, ['fonts-'+appName]);
         gulp.watch(appsPaths[appName].specFolder, ['lint-'+appName]);
         gulp.watch(appsPaths[appName].indexHtml, ['indexHtml-dev-'+appName]);
         gulp.watch(appsPaths[appName].appStyles, ['styles-dev-'+appName]);
