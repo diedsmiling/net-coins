@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     del     = require('del'),
     publicFolderPath = '../public',
     adminPublicFolderPath = '../public/admin',
+    bc = 'bower_components',
     appsPaths = {
         'front' : {
             appJavascript:     ['app/js/app.js', 'app/js/**/*.js'],
@@ -13,8 +14,8 @@ var gulp = require('gulp'),
             appStyles:         'app/scss/**/*.scss',
             appImages:         '2/images/**/*',
             indexHtml:         'app/index.html',
-            vendorJavascript:  ['vendor/js/angular.js', 'vendor/js/**/*.js'],
-            vendorCss:         ['vendor/css/**/*.css'],
+            vendorJavascript:  [bc+ '/angular/angular.js'],
+            vendorCss:         [bc + '/bootstrap-css/bootstrap.css'],
             finalAppJsPath:    '/js/app.js',
             finalAppCssPath:   '/css/app.css',
             specFolder:        ['spec/**/*_spec.js'],
@@ -34,8 +35,8 @@ var gulp = require('gulp'),
             appStyles:         'admin_app/scss/**/*.scss',
             appImages:         'admin_app/images/**/*',
             indexHtml:         'admin_app/admin.html',
-            vendorJavascript:  ['vendor/js/angular.js', 'vendor/js/**/*.js'],
-            vendorCss:         ['vendor/css/**/*.css'],
+            vendorJavascript:  [bc+ '/angular/angular.js'],
+            vendorCss:         [bc + '/bootstrap-css/css/bootstrap.css'],
             finalAppJsPath:    '/admin/js/app.js',
             finalAppCssPath:   '/admin/css/app.css',
             specFolder:        ['spec/**/*_spec.js'],
@@ -78,6 +79,7 @@ function buildTemplates() {
 function createDevelopmentScriptsTask(appName){
     var  paths = appsPaths[appName];
     gulp.task('scripts-dev-'+appName, function() {
+        console.log(paths.vendorJavascript);
         return gulp.src(paths.vendorJavascript.concat(paths.appJavascript, paths.appTemplates))
         .pipe(plugins.if(/html$/, buildTemplates()))
         .pipe(plugins.sourcemaps.init())
@@ -162,8 +164,7 @@ function createProductionStylesTask(appName) {
  */
 function createDevelopmentIndexTask(appName) {
     var  paths = appsPaths[appName];
-    gulp.task('indexHtml-dev-'+appName, ['scripts-dev-'+appName, 'styles-dev-'+appName], function() {
-        console.log(paths.finalAppJsPath);
+    gulp.task('indexHtml-dev-'+appName, ['scripts-dev-'+appName, 'styles-dev-'+appName], function() {5
         var manifest = {
             js: paths.finalAppJsPath,
             css: paths.finalAppCssPath
