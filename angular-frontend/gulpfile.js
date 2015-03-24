@@ -16,7 +16,7 @@ var gulp = require('gulp'),
             appImages:         'app/images/**/*',
             faFonts:           bc+  '/font-awesome/fonts/*',
             indexHtml:         'app/index.html',
-            vendorJavascript:  [bc+ '/angular/angular.js'],
+            vendorJavascript:  [bc+ '/angular/angular.js', bc/+ '/angular-route/angular-route.js'],
             vendorCss:         [bc + '/bootstrap-css/css/bootstrap.min.css', bc + '/font-awesome/css/font-awesome.min.css'],
             finalAppJsPath:    '/js/app.js',
             finalAppCssPath:   '/css/app.css',
@@ -39,7 +39,7 @@ var gulp = require('gulp'),
             appImages:         'admin_app/images/**/*',
             faFonts:           bc+  '/font-awesome/fonts/*',
             indexHtml:         'admin_app/admin.html',
-            vendorJavascript:  [bc+ '/angular/angular.js'],
+            vendorJavascript:  [bc+ '/angular/angular.js', bc+ '/angular-route/angular-route.js'],
             vendorCss:         [bc + '/bootstrap-css/css/bootstrap.min.css', bc + '/font-awesome/css/font-awesome.min.css'],
             finalAppJsPath:    '/admin/js/app.js',
             finalAppCssPath:   '/admin/css/app.css',
@@ -123,7 +123,7 @@ function createImagesTask(appName){
     });
 }
 
-/**
+/**dif
  * Add fonts task for both environments
  *
  * @param string appName
