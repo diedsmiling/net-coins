@@ -6,6 +6,7 @@
 .idea
 
 angular-frontend/node_modules
+angular-frontend/bower_components
 
 
 public/images

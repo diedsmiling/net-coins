@@ -15,16 +15,23 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
+
+
 Route::group(array('prefix' => 'api'), function () {
 	Route::get('pages', 'PagesController@index');
 	Route::get('articles', 'ArticlesController@index');
 });
 
+/*
 Route::group(array('prefix' => 'admin'), function () {
 	Route::any('{path?}', function()
 	{
 		return File::get(public_path() . '/admin/angular.html');
 	})->where("path", ".+");
+});*/
+
+Route::get('admin/login', function(){
+	return File::get(public_path() . '/admin/angular.html');
 });
 
 Route::controllers([

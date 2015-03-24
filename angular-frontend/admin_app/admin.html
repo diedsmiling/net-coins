@@ -1,21 +1,13 @@
 <!doctype html>
-<html ng-app="app" lang="en">
+<html ng-app="adminApp" lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Angular App</title>
   <link rel="stylesheet" href="<%= css %>">
 </head>
 <body class="sign_in">
-<div class="container">
-    <section class="sign_in_module row">
-        <div class="col-xs-6 col-xs-offset-3 row">
-            <div class="sign_in_module_header">
-                <span class="bigBoy">Net-coins.ru</span>
-            </div>
-            <i class="fa fa-envelope-o "></i> <span class="hidden-xs hidden-sm">{{3 + 5}} sdsdsd  </span>
+<div class="container" ng-view>
 
-        </div>
-    </section>
 </div>
 
   <script type="text/javascript" src="<%= js %>"></script>

@@ -16,7 +16,7 @@ var gulp = require('gulp'),
             appImages:         'app/images/**/*',
             faFonts:           bc+  '/font-awesome/fonts/*',
             indexHtml:         'app/index.html',
-            vendorJavascript:  [bc+ '/angular/angular.js', bc/+ '/angular-route/angular-route.js'],
+            vendorJavascript:  [bc+ '/angular/angular.js', bc + '/angular-route/angular-route.js'],
             vendorCss:         [bc + '/bootstrap-css/css/bootstrap.min.css', bc + '/font-awesome/css/font-awesome.min.css'],
             finalAppJsPath:    '/js/app.js',
             finalAppCssPath:   '/css/app.css',
@@ -64,6 +64,7 @@ var gulp = require('gulp'),
  * @returns {*}
  */
 function buildTemplates() {
+    console.log('dd');
     return es.pipeline(
         plugins.minifyHtml({
             empty: true,
@@ -71,7 +72,7 @@ function buildTemplates() {
             quotes: true
         }),
         plugins.angularTemplatecache({
-            module: 'app'
+            module: 'adminApp'
         })
     );
 }
@@ -85,6 +86,7 @@ function createDevelopmentScriptsTask(appName){
     var  paths = appsPaths[appName];
     gulp.task('scripts-dev-'+appName, function() {
         return gulp.src(paths.vendorJavascript.concat(paths.appJavascript, paths.appTemplates))
+        .pipe(debug())
         .pipe(plugins.if(/html$/, buildTemplates()))
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.concat('app.js'))
@@ -102,7 +104,6 @@ function createDevelopmentStylesTask(appName){
     var  paths = appsPaths[appName];
     gulp.task('styles-dev-'+appName, function() {
         return gulp.src(paths.vendorCss.concat(paths.appMainSass, paths.appStyles))
-            .pipe(debug())
             .pipe(plugins.if(/scss$/, plugins.sass()))
             .pipe(plugins.concat('app.css'))
             .pipe(gulp.dest(paths.publicCss))
@@ -145,7 +146,7 @@ function createFontsTask(appName){
 function createProductionScriptsTask(appName){
     var  paths = appsPaths[appName];
     gulp.task('scripts-prod-'+appName, function() {
-        return gulp.src(paths.vendorJavascript.concat(paths.appJavascript, paths.appTemplates))
+        return gulp.src(paths.vendorJavascript.concat(paths.appTemplates, paths.appJavascript))
             .pipe(plugins.if(/html$/, buildTemplates()))
             .pipe(plugins.concat('app.js'))
             .pipe(plugins.ngAnnotate())
