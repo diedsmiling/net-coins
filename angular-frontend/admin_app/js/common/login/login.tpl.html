@@ -1,0 +1,25 @@
+<section class="sign_in_module row">
+    <div class="col-xs-4 col-xs-offset-4 row">
+        <div class="sign_in_module_header">
+            <span class="bigBoy">Net-coins.ru {{list}}</span>
+        </div>
+        <div class="sing_in_content">
+            <form ng-submit="login()"><!--username-->
+                <div class="form-group">
+                    <input class="form-control" ng-model="data.username"  id="username" type="text" />
+                </div>
+                <!--password-->
+                <div class="form-group">
+                    <input class="form-control"  ng-model="data.password" id="password" type="password" />
+                </div>
+                <!--submit-->
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+       <pre>
+           {{data}}
+       </pre>
+    </div>
+</section>
