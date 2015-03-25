@@ -16,7 +16,7 @@ var gulp = require('gulp'),
             appImages:         'app/images/**/*',
             faFonts:           bc+  '/font-awesome/fonts/*',
             indexHtml:         'app/index.html',
-            vendorJavascript:  [bc+ '/angular/angular.js', bc + '/angular-route/angular-route.js'],
+            vendorJavascript:  [bc+ '/angular/angular.js', bc+ '/angular-storage/angular-storage.js', bc+ '/angular-animate/angular-animate.js', bc + '/angular-route/angular-route.js'],
             vendorCss:         [bc + '/bootstrap-css/css/bootstrap.min.css', bc + '/font-awesome/css/font-awesome.min.css'],
             finalAppJsPath:    '/js/app.js',
             finalAppCssPath:   '/css/app.css',
@@ -39,7 +39,7 @@ var gulp = require('gulp'),
             appImages:         'admin_app/images/**/*',
             faFonts:           bc+  '/font-awesome/fonts/*',
             indexHtml:         'admin_app/admin.html',
-            vendorJavascript:  [bc+ '/angular/angular.js', bc+ '/angular-route/angular-route.js'],
+            vendorJavascript:  [bc+ '/angular/angular.js', bc+ '/angular-storage/angular-storage.js', bc+ '/angular-animate/angular-animate.js', bc+ '/angular-route/angular-route.js'],
             vendorCss:         [bc + '/bootstrap-css/css/bootstrap.min.css', bc + '/font-awesome/css/font-awesome.min.css'],
             finalAppJsPath:    '/admin/js/app.js',
             finalAppCssPath:   '/admin/css/app.css',
@@ -59,12 +59,11 @@ var gulp = require('gulp'),
     paths = appsPaths['front'];
 
 /**
- * Build angular templates
+ * Build angular templates and save them to cache
  *
  * @returns {*}
  */
 function buildTemplates() {
-    console.log('dd');
     return es.pipeline(
         plugins.minifyHtml({
             empty: true,
@@ -86,7 +85,6 @@ function createDevelopmentScriptsTask(appName){
     var  paths = appsPaths[appName];
     gulp.task('scripts-dev-'+appName, function() {
         return gulp.src(paths.vendorJavascript.concat(paths.appJavascript, paths.appTemplates))
-        .pipe(debug())
         .pipe(plugins.if(/html$/, buildTemplates()))
         .pipe(plugins.sourcemaps.init())
         .pipe(plugins.concat('app.js'))
