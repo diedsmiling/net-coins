@@ -29,7 +29,7 @@ var gulp = require('gulp'),
             publicFonts:       publicFolderPath + '/fonts',
             publicIndex:       publicFolderPath + '/angular.html',
             publicJsManifest:  publicFolderPath + '/js/rev-manifest.json',
-            publicCssManifest: publicFolderPath + '/css/rev-manifest.json',
+            publicCssManifest: publicFolderPath + '/css/rev-manifest.json'
         },
         'admin' : {
             appJavascript:     ['admin_app/js/app.js', 'admin_app/js/**/*.js'],
