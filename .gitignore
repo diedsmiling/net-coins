@@ -10,9 +10,11 @@ angular-frontend/bower_components
 
 
 public/images
+public/fonts
 public/css
 public/js
 
 public/admin/images
+public/admin/fonts
 public/admin/css
 public/admin/js
