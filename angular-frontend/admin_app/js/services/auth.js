@@ -19,14 +19,6 @@ angular.module('adminApp')
             return window.atob(output);
         }
 
-        function checkSession(){
-            console.log(typeof($localStorage.token));
-         //   if(typeof($localStorage.token == 'undefined')){
-           //     console.log('not allowed');
-            //}
-
-        }
-
         function getClaimsFromToken() {
             var token = $localStorage.token;
             var user = {};
@@ -53,7 +45,6 @@ angular.module('adminApp')
                 return tokenClaims;
             },
             checkSession: function(){
-                console.log(typeof($localStorage.token) );
                 if(typeof $localStorage.token == 'undefined'){
                     $location.path('/');
                 }
