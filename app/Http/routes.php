@@ -1,21 +1,26 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+use App\User;
+use Illuminate\Http\Response as HttpResponse;
+
+Route::any('/admin/', function()
+{
+	return File::get(public_path() . '/admin/angular.html');
+});
 
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
 Route::get('aa', function(){ dd('d');});
+
+Route::get('/set_pass', function(){
+	$user =  App\User::first();
+	$user->password = '123';
+	$user->save();
+	dd($user);
+
+});
 
 Route::group(array('prefix' => 'api'), function () {
 	Route::get('pages', 'PagesController@index');
@@ -24,6 +29,8 @@ Route::group(array('prefix' => 'api'), function () {
 
 Route::post('/admin/auth', function () {
 	$credentials = Input::only('email', 'password');
+	$token = JWTAuth::attempt($credentials);
+
 
 	if ( ! $token = JWTAuth::attempt($credentials)) {
 		return Response::json(false, HttpResponse::HTTP_UNAUTHORIZED);
@@ -46,6 +53,7 @@ Route::get('/admin/restricted', [
 		]);
 	}
 ]);
+
 
 Route::group(array('prefix' => 'admin'), function () {
 	Route::any('{path?}', function()

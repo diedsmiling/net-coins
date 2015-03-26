@@ -1,16 +1,17 @@
 'use strict';
 
-var adminAppControllers = angular.module('adminAppControllers', []);
-
 adminAppControllers.controller('loginController', [
     '$scope','$location', '$localStorage', 'Auth',
     function($scope, $location, $localStorage, Auth){
         $scope.token = $localStorage.token;
+        console.log(Auth);
         $scope.tokenClaims = Auth.getTokenClaims();
-        console.log($scope.tokenClaims);
 
-        $scope.successAuth = function(){
-            console.log('URAAA!');
+        $scope.successAuth = function(result){
+            console.log(result.token);
+            $localStorage.token = result.token;
+            $location.path('/index');
+            //window.location = "/"
         }
 
         $scope.errorAuth = function(error){
@@ -19,6 +20,12 @@ adminAppControllers.controller('loginController', [
 
         $scope.login = function(){
             Auth.login($scope.data, $scope.successAuth, $scope.errorAuth)
+        }
+
+        $scope.logout = function(){
+            Auth.logout(function(){
+                $location.path('/');
+            });
         }
     }
 ]);

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adminApp')
-    .factory('Auth', ['$http', '$localStorage', function ($http, $localStorage) {
+    .factory('Auth', ['$http', '$localStorage', '$location', function ($http, $localStorage, $location) {
         function urlBase64Decode(str) {
             var output = str.replace('-', '+').replace('_', '/');
             switch (output.length % 4) {
@@ -19,6 +19,14 @@ angular.module('adminApp')
             return window.atob(output);
         }
 
+        function checkSession(){
+            console.log(typeof($localStorage.token));
+         //   if(typeof($localStorage.token == 'undefined')){
+           //     console.log('not allowed');
+            //}
+
+        }
+
         function getClaimsFromToken() {
             var token = $localStorage.token;
             var user = {};
@@ -32,6 +40,7 @@ angular.module('adminApp')
         var tokenClaims = getClaimsFromToken();
 
         return {
+
             login: function (data, success, error) {
                 $http.post('/admin/auth', data).success(success).error(error)
             },
@@ -42,6 +51,12 @@ angular.module('adminApp')
             },
             getTokenClaims: function () {
                 return tokenClaims;
+            },
+            checkSession: function(){
+                console.log(typeof($localStorage.token) );
+                if(typeof $localStorage.token == 'undefined'){
+                    $location.path('/');
+                }
             }
         };
     }
