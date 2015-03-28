@@ -1,0 +1,9 @@
+{
+  "framework" : "jasmine2",
+  "launch_in_dev" : ["Chrome"],
+  "src_files" : [
+    "public/admin/js/app.js",
+    "angular-frontend/spec/helpers/angular-mocks.js",
+    "angular-frontend/spec/**/*_spec.js"
+  ]
+}
