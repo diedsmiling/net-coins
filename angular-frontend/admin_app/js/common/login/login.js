@@ -4,22 +4,21 @@ adminAppControllers.controller('loginController', [
     '$scope','$location', '$localStorage', 'Auth',
     function($scope, $location, $localStorage, Auth){
         $scope.token = $localStorage.token;
-        console.log(Auth);
         $scope.tokenClaims = Auth.getTokenClaims();
 
         $scope.successAuth = function(result){
-            console.log(result.token);
-            $localStorage.token = result.token;
+            $scope.token =  $localStorage.token = result.token;
             $location.path('/index');
-            //window.location = "/"
         }
 
         $scope.errorAuth = function(error){
-            alert(error);
+            console.warn(error);
+            return false;
         }
 
         $scope.login = function(){
-            Auth.login($scope.data, $scope.successAuth, $scope.errorAuth)
+            Auth.login($scope.data, $scope.successAuth, $scope.errorAuth);
+            return false;
         }
 
         $scope.logout = function(){

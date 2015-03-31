@@ -28,7 +28,8 @@ adminApp.config(['$routeProvider', '$httpProvider',
                 'responseError': function (response) {
                     if (response.status === 401 || response.status === 403) {
                         delete $localStorage.token;
-                        $location.path('/signin');
+                        if($location.$$path != '/')
+                            $location.path('/');
                     }
                     return $q.reject(response);
                 }
