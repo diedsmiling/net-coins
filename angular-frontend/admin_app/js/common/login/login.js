@@ -23,6 +23,8 @@ adminAppControllers.controller('loginController', [
 
         $scope.logout = function(){
             Auth.logout(function(){
+                delete $scope.token;
+                delete $scope.tokenClaims;
                 $location.path('/');
             });
         }
