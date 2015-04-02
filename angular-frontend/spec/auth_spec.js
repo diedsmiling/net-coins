@@ -31,14 +31,13 @@ describe('loginController', function() {
     it('Login function', function(){
         delete scope.token;
         expect(scope.token).not.toBeDefined();
-        scope.data = {email: 'diedsmiling@gmail.com', password: '1234'}
+        scope.data = {email: 'diedsmiling@gmail.com', password: 'passwordWrong'}
         $httpBackend.whenPOST('/admin/auth', scope.data).respond(401);
         scope.login(scope.data, scope.successAuth, scope.errorAuth);
         $httpBackend.flush();
         expect(scope.token).not.toBeDefined();
 
-
-        scope.data = {email: 'diedsmiling@gmail.com', password: '123'}
+        scope.data = {email: 'diedsmiling@gmail.com', password: 'password'}
         $httpBackend.whenPOST('/admin/auth', scope.data).respond(tokenResponse());
         scope.login(scope.data, scope.successAuth, scope.errorAuth);
         $httpBackend.flush();
