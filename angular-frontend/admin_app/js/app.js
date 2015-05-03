@@ -1,6 +1,7 @@
 var adminApp = angular.module('adminApp', [
     'ngStorage',
     'ngRoute',
+    'ngAnimate',
     'adminAppControllers'
 
 ]);

@@ -1,20 +1,29 @@
 <section class="sign_in_module row">
     <div class="col-xs-4 col-xs-offset-4 row">
         <div class="sign_in_module_header">
-            <span class="bigBoy">Net-coins.ru {{list}}</span>
+            <h1 class="bigBoy">Net-coins.ru</h1>
+            <h2>No visitors allowed</h2>
+
         </div>
         <div class="sing_in_content">
             <form ng-submit="login()"><!--username-->
                 <div class="form-group">
-                    <input class="form-control" ng-model="data.email"  id="email" type="text" />
+                    <input class="form-control" placeholder="Email" ng-model="data.email"  id="email" type="text" />
+                    <span class="fake-placeholder animate-if" ng-animate="'animate'" ng-if="data.email" >
+                        Email
+                    </span>
                 </div>
+
                 <!--password-->
                 <div class="form-group">
-                    <input class="form-control"  ng-model="data.password" id="password" type="password" />
+                    <input class="form-control" placeholder="Password" ng-model="data.password" id="password" type="password" />
+                    <span class="fake-placeholder animate-if" ng-animate="'animate'" ng-if="data.password" >
+                        Password
+                    </span>
                 </div>
                 <!--submit-->
                 <div class="form-group">
-                    <button class="btn btn-primary" ng-model="data.submit_button" type="submit">Login</button>
+                    <button class="btn btn-primary full-length"  ng-model="data.submit_button" type="submit">Login</button>
                 </div>
             </form>
         </div>

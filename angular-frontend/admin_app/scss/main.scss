@@ -1,6 +1,7 @@
 $font-stack: 'Open Sans Condensed', sans-serif;
 $bigBoy: 60px;
 $darkBlue: #515a63;
+$headersMargin: 0px 0px 10px;
 
 html{
   height: 100%;
@@ -25,12 +26,31 @@ body {
 }
 .sign_in_module_header{
   text-align: center;
-  span{
+  h1{
      font: normal $bigBoy $font-stack !important;
-      }
+     margin: $headersMargin;
+  }
+  h2{
+    margin: $headersMargin;
+  }
 }
 .sing_in_content{
   text-emphasis: center;
+  .form-control{
+    background: none;
+    border: none;
+    color: white;
+    border-bottom: 1px solid #009fdf;
+    width: 100%;
+    border-radius: 0px;
+    box-shadow: none;
+    font-size:16px;
+  }
+  .form-group{
+    margin: 35px 0px 0px;
+    position: relative;
+  }
+  .form-control::-webkit-input-placeholder {color:#fff;}
 }
 .view-animate-container {
   position:relative;
@@ -41,32 +61,28 @@ body {
   overflow:hidden;
 }
 
-.view-animate {
-  padding:10px;
+.fake-placeholder {
+  position: absolute;
+  top: -20px;
+  left: 12px;
+  font-size: 16px;
 }
 
-.view-animate.ng-enter, .view-animate.ng-leave {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 1.5s;
-
-  display:block;
-  width:100%;
-  border-left:1px solid black;
-
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  bottom:0;
-  padding:10px;
+.fake-placeholder.ng-enter, .fake-placeholder.ng-leave {
+  -webkit-transition:all linear 0.1s;
+  transition:all linear 0.1s;
 }
 
-.view-animate.ng-enter {
-  left:100%;
+.fake-placeholder.ng-enter,
+.fake-placeholder.ng-leave.ng-leave-active {
+  /*opacity:0;*/
+  top: -6px;
 }
-.view-animate.ng-enter.ng-enter-active {
-  left:0;
+
+.fake-placeholder.ng-leave,
+.fake-placeholder.ng-enter.ng-enter-active {
+  top: -20px;
 }
-.view-animate.ng-leave.ng-leave-active {
-  left:-100%;
+.full-length{
+  width: 100%;
 }
