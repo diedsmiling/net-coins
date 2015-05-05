@@ -30,3 +30,8 @@ adminAppControllers.controller('loginController', [
         }
     }
 ]);
+adminAppDirectives.directive('ncLoginDebugger', function(){
+    return {
+        templateUrl: 'common/directives/debugger.tpl.html'
+    };
+});

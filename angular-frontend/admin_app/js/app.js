@@ -2,7 +2,8 @@ var adminApp = angular.module('adminApp', [
     'ngStorage',
     'ngRoute',
     'ngAnimate',
-    'adminAppControllers'
+    'adminAppControllers',
+    'adminAppDirectives'
 
 ]);
 
@@ -39,4 +40,5 @@ adminApp.config(['$routeProvider', '$httpProvider',
     }
 ]);
 
-var adminAppControllers = angular.module('adminAppControllers', []);
+var adminAppControllers = angular.module('adminAppControllers', []),
+    adminAppDirectives  = angular.module('adminAppDirectives', []);
