@@ -3,6 +3,9 @@
 adminAppControllers.controller('loginController', [
     '$scope','$location', '$localStorage', 'Auth',
     function($scope, $location, $localStorage, Auth){
+        $scope.a = {name: 'Alex', planet: 'Mars'};
+        $scope.b = {name: 'Natasha', planet: 'Venus'};
+
         $scope.token = $localStorage.token;
         $scope.tokenClaims = Auth.getTokenClaims();
 
@@ -32,6 +35,43 @@ adminAppControllers.controller('loginController', [
 ]);
 adminAppDirectives.directive('ncLoginDebugger', function(){
     return {
+        restrict: 'E',
+        scope: {
+            info: '='
+        },
         templateUrl: 'common/directives/debugger.tpl.html'
-    };
+    }
+});
+
+adminAppDirectives.directive('ncPlaceholder', function($interval, dateFilter){
+
+    function link(scope, element, attrs){
+        var defaultPh = attrs.ncPlaceholder,
+            fStarted = false,
+            timeout = null,
+            modelBinding = attrs.ngModel;
+
+        addDefaultPh();
+
+        scope.$watch(modelBinding, function(value){
+            if(fStarted && value != ''){
+                clearTimeout(timeout)
+                element.removeAttr('placeholder');
+            }
+            else
+                timeout= setTimeout(function(){
+                    addDefaultPh();
+                }, 130)
+            fStarted = true;
+        });
+
+        function addDefaultPh(){
+            element.attr('placeholder', defaultPh);
+        }
+    }
+
+    return {
+        restrict: 'A',
+        link: link
+    }
 });
