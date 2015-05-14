@@ -36,9 +36,6 @@ adminAppControllers.controller('loginController', [
 adminAppDirectives.directive('ncLoginDebugger', function(){
     return {
         restrict: 'E',
-        scope: {
-            info: '='
-        },
         templateUrl: 'common/directives/debugger.tpl.html'
     }
 });
@@ -61,7 +58,7 @@ adminAppDirectives.directive('ncPlaceholder', function($interval, dateFilter){
             else
                 timeout= setTimeout(function(){
                     addDefaultPh();
-                }, 130)
+                }, 140)
             fStarted = true;
         });
 
