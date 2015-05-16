@@ -1,5 +1,5 @@
 'use strict';
-describe('Protractor Demo App', function() {
+describe('Net-coins admin authentication', function() {
     it('should have a title', function() {
         browser.get('http://localhost:8000/admin/login');
         expect(browser.getTitle()).toEqual('Angular Admin App');

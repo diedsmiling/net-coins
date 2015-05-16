@@ -7,7 +7,7 @@ describe('loginController', function() {
 
     var $controller, scope, ctrl, Auth, resp,
         tokenResponse = function(){
-            return {"token": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJzdWIiOiIxIiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwMDBcL2FkbWluXC9hdXRoIiwiaWF0IjoiMTQyNzgzMzc4NyIsImV4cCI6IjE0Mjc4MzczODciLCJuYmYiOiIxNDI3ODMzNzg3IiwianRpIjoiODc1NDgwZTZiZTI5ZTg0OWE4NmUyMGVhNmQ5MzliZDYifQ.YWJjYjA2NDJjMGVjM2M0ZjZlOGMxMTNlMGVlYzMxNzBmMzg1MWFlZjI3ZDc5OWEwYTcyMTgyZTdjNzAxOTk1YQ'};
+            return {'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXUyJ9.eyJzdWIiOiIxIiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwMDBcL2FkbWluXC9hdXRoIiwiaWF0IjoiMTQyNzgzMzc4NyIsImV4cCI6IjE0Mjc4MzczODciLCJuYmYiOiIxNDI3ODMzNzg3IiwianRpIjoiODc1NDgwZTZiZTI5ZTg0OWE4NmUyMGVhNmQ5MzliZDYifQ.YWJjYjA2NDJjMGVjM2M0ZjZlOGMxMTNlMGVlYzMxNzBmMzg1MWFlZjI3ZDc5OWEwYTcyMTgyZTdjNzAxOTk1YQ'};
         },
         tokenClaims = function(){
             return {
