@@ -9,17 +9,10 @@
             <form ng-submit="login()"><!--username-->
                 <div class="form-group">
                     <input class="form-control" nc-placeholder="Email" ng-model="data.email"  id="email" type="text" />
-                    <span class="fake-placeholder animate-if" ng-animate="'animate'" ng-if="data.email" >
-                        Email
-                    </span>
                 </div>
-
                 <!--password-->
                 <div class="form-group">
                     <input nc-placeholder="Password" class="form-control" ng-model="data.password" id="password" type="password" />
-                    <span class="fake-placeholder animate-if" ng-animate="'animate'" ng-if="data.password" >
-                        Password
-                    </span>
                 </div>
                 <!--submit-->
                 <div class="form-group">
@@ -27,7 +20,6 @@
                 </div>
             </form>
         </div>
-         <nc-login-debugger info="a"></nc-login-debugger>
-        <span my-custom-timer="format" style="color: red">0</span>
+         <nc-debugger></nc-debugger>
     </div>
 </section>
