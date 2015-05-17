@@ -21,7 +21,8 @@ adminAppDirectives.directive('ncPlaceholder', function($interval, dateFilter){
         var defaultPh = attrs.ncPlaceholder,
             modelBinding = attrs.ngModel;
 
-        element.after('<span class="fake-placeholder animate-if" ng-animate="\'animate\'" ng-if="'+modelBinding+'" >'+defaultPh+'</span>');
+        element.
+            after('<span class="fake-placeholder animate-if" ng-animate="\'animate\'" ng-if="'+modelBinding+'" >'+defaultPh+'</span>');
 
         return{
             post: link
@@ -38,14 +39,18 @@ adminAppDirectives.directive('ncPlaceholder', function($interval, dateFilter){
         addDefaultPh();
 
         scope.$watch(modelBinding, function(value){
-            if(fStarted && value != ''){
+            console.log(value);
+            console.log(fStarted);
+            if(fStarted == true && typeof(value) != 'undefined'){
                 clearTimeout(timeout)
                 element.removeAttr('placeholder');
             }
-            else
+            else if(typeof(value) == 'undefined'){
                 timeout= setTimeout(function(){
                     addDefaultPh();
                 }, 140)
+                console.log('arrr');
+            }
             fStarted = true;
         });
 

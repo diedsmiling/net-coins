@@ -4,13 +4,16 @@
             <a href=""><img src="/admin/images/logo.png"></a>
         </div>
         <div class="sing_in_content">
-            <form ng-submit="login()"><!--username-->
+            <form name="form" ng-submit="login()"><!--username-->
                 <div class="form-group">
-                    <input class="form-control" nc-placeholder="Email" ng-model="data.email"  id="email" type="text" />
+                    <input required="" class="form-control" nc-placeholder="Email" ng-model="data.email"  name="email" id="email" type="text" />
                 </div>
+                <span ng-show="form.$submitted && form.email.$error.required">
+                    sss
+                </span>
                 <!--password-->
                 <div class="form-group">
-                    <input nc-placeholder="Password" class="form-control" ng-model="data.password" id="password" type="password" />
+                    <input required=""  nc-placeholder="Password" class="form-control" ng-model="data.password" id="password" type="password" />
                 </div>
                 <!--submit-->
                 <div class="form-group">
