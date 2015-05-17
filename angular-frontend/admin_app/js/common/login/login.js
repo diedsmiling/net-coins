@@ -3,7 +3,6 @@
 adminAppControllers.controller('loginController', [
     '$scope','$location', '$localStorage', 'Auth',
     function($scope, $location, $localStorage, Auth){
-        $scope.name = 'YO';
 
         $scope.token = $localStorage.token;
         $scope.tokenClaims = Auth.getTokenClaims();

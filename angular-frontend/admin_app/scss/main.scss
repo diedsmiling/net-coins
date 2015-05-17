@@ -1,6 +1,8 @@
 $font-stack: 'Open Sans Condensed', sans-serif;
 $bigBoy: 60px;
-$darkBlue: #515a63;
+$darkBlue: #34495e;
+$lightBlue: #3498db;
+$lightBlueAlt: #2980b9;
 $headersMargin: 0px 0px 10px;
 
 html{
@@ -40,7 +42,7 @@ body {
     background: none;
     border: none;
     color: white;
-    border-bottom: 1px solid #009fdf;
+    border-bottom: 1px solid $lightBlue;
     width: 100%;
     border-radius: 0px;
     box-shadow: none;
@@ -51,6 +53,15 @@ body {
     position: relative;
   }
   .form-control::-webkit-input-placeholder {color:#fff;}
+  .btn-login{
+    font-weight: bold;
+    background-color: $lightBlue !important;
+    border-color: $lightBlue !important;
+  }
+  .btn-login:hover{
+    background-color: $lightBlueAlt !important;
+    border-color: $lightBlueAlt !important;
+  }
 }
 .view-animate-container {
   position:relative;

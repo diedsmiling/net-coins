@@ -1,18 +1,21 @@
 <!doctype html>
 <html ng-app="adminApp" lang="en">
-<head>
+
+  <head>
   <meta charset="UTF-8">
-  <title>Angular Admin App</title>
-  <link rel="stylesheet" href="<%= css %>">
-</head>
-<body class="sign_in">
-<div class="auth_data" ng-controller="loginController">
-  <a ng-click="logout();">Logout!</a>
-</div>
-<div class="container" ng-view>
+    <title>Angular Admin App</title>
+    <link rel="stylesheet" href="<%= css %>">
+  </head>
 
-</div>
+  <body class="sign_in">
 
-  <script type="text/javascript" src="<%= js %>"></script>
-</body>
+    <div class="auth_data" ng-controller="loginController">
+      <a ng-show="tokenClaims" ng-click="logout();">Logout!</a>
+    </div>
+    <div class="container" ng-view>
+    </div>
+
+    <script type="text/javascript" src="<%= js %>"></script>
+  </body>
+
 </html>
